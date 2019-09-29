@@ -1,4 +1,4 @@
-{% load static %}
+{% load staticfiles %}
 
 <!-- 网站主语言 -->
 <html lang="zh-cn">
@@ -9,22 +9,24 @@
     <!-- 预留网站标题的位置 -->
     <title>{% block title %}{% endblock %}</title>
     <!-- 引入bootstrap的css文件 -->
-    <link rel="stylesheet" href="{% static 'article/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <!-- 引入Markdown通用语法高亮文件monikai.css -->
-    <link rel="stylesheet" href="{% static 'article/css/monokai.css' %}">
+    <link rel="stylesheet" href="{% static 'css/monokai.css' %}">
 </head>
 
 <body>
 <!-- 引入导航栏 -->
-{% include 'article/header.html' %}
+{% include 'header.html' %}
 <!-- 预留具体页面的位置 -->
 {% block content %}{% endblock content %}
 <!-- 引入注脚 -->
-{% include 'article/footer.html' %}
-<script src="{% static 'article/js/jquery-3.4.1.min.js' %}"></script>
-<script src="{% static 'article/js/popper.min.js' %}"></script>
+{% include 'footer.html' %}
+<script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
 <!-- 引入bootstrap的js文件 -->
-<script src="{% static 'article/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<!-- 引入Layer.js -->
+<script src="{% static 'js/layer/layer.js' %}"></script>
 </body>
 
 </html>
