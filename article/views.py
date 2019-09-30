@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 
 import markdown
@@ -29,13 +30,14 @@ def article_detail(request, id):
     return render(request, "article/detail.html", context)  # 载入模板，并返回context对象
 
 
+@login_required(login_url="user/login/")
 def article_create(request):
     """写文章的视图"""
     if request.method == "POST":  # 判断用户是否提交数据
         article_post_form = ArticleForm(data=request.POST)  # 将提交的数据赋值到表单实例中
         if article_post_form.is_valid():  # 判断提交的数据是否满足模型的要求
             new_article = article_post_form.save(commit=False)  # 保存数据，但暂时不提交到数据库中
-            new_article.author = User.objects.get(pk=1)  # # 指定作者
+            new_article.author = User.objects.get(id=request.user.id)  # 指定目前登录的用户为作者
             new_article.save()  # 将新文章保存到数据库中
             return redirect("article:article_list")  # 完成后返回到文章列表，redirect可通过url地址的名字，反向解析到对应的url。
         else:

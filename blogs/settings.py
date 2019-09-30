@@ -117,3 +117,17 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# --------------------------- 发送邮件的配置 --------------------------
+# SMTP服务器，改为你的邮箱的smtp
+EMAIL_HOST = 'smtp.qq.com'
+# 邮箱名
+EMAIL_HOST_USER = 'send@email'
+# 邮箱密码
+EMAIL_HOST_PASSWORD = '******'
+# 发送邮件的端口
+EMAIL_PORT = 25
+# 是否使用 TLS
+EMAIL_USE_TLS = True
+# 默认的发件人
+DEFAULT_FROM_EMAIL = 'blogs'
