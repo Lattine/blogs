@@ -8,9 +8,9 @@
 from sanic import response
 from sanic import Blueprint
 
-usr = Blueprint("user", url_prefix="user")
+user = Blueprint("user", url_prefix="user")
 
 
-@usr.route("/login")
+@user.route("/login")
 async def login(request):
     return response.json({"msg": "success"})

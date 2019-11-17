@@ -5,19 +5,37 @@
 # @Author   : Lattine
 
 # =======================
-from sanic import Sanic
-from sanic import response
+from sanic import Sanic, response
+from sanic_jwt import Initialize, protected, exceptions
+from backend.dao import Users
 
-from backend.user.user import usr
 
+# ----------- Common Methods for JWT --------------
+async def authenticate(request, *args, **kwargs):
+    username = request.json.get("username", None)
+    password = request.json.get("password", None)
+    if not username or not password:
+        raise exceptions.AuthenticationFailed()
+    user = Users.select().where(username == username, password == password)
+    if not user:
+        raise exceptions.AuthenticationFailed()
+    return user
+
+
+# --------------- Main process --------------
 app = Sanic("blogs")
-
-app.blueprint(usr)
+Initialize(app, authenticate=authenticate)
 
 
 @app.route("/")
 async def index(request):
     return response.json({"host": request.host})
+
+
+@app.route("/sc")
+@protected()
+async def sc(request):
+    return response.json({"host": request.host, "msg": "secret!"})
 
 
 if __name__ == '__main__':
