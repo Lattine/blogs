@@ -6,6 +6,7 @@
 
 # =======================
 from sanic import Sanic, response
+from sanic_cors import CORS
 from sanic_jwt import Initialize, protected, exceptions
 from backend.dao import Users
 
@@ -16,14 +17,15 @@ async def authenticate(request, *args, **kwargs):
     password = request.json.get("password", None)
     if not username or not password:
         raise exceptions.AuthenticationFailed()
-    user = Users.select().where(username == username, password == password)
+    user = Users.select().where(username == username, password == password).get()
     if not user:
         raise exceptions.AuthenticationFailed()
-    return user
+    return {"id": user.id, "username": user.username}
 
 
 # --------------- Main process --------------
 app = Sanic("blogs")
+CORS(app)  # 解决跨域
 Initialize(app, authenticate=authenticate)
 
 
@@ -32,11 +34,12 @@ async def index(request):
     return response.json({"host": request.host})
 
 
-@app.route("/sc")
+@app.route("/sc", methods=["GET", "OPTIONS"])
 @protected()
 async def sc(request):
     return response.json({"host": request.host, "msg": "secret!"})
 
 
 if __name__ == '__main__':
-    app.run(host="127.0.0.1", port=8000)
+    # app.run(host="127.0.0.1", port=8000)
+    app.run(host="0.0.0.0", port=8000, auto_reload=True)
