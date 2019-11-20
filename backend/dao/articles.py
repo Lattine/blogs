@@ -1,13 +1,15 @@
 # -*- coding: utf-8 -*-
 
 
-# @Time     : 19-11-17
+# @Time     : 19-11-20
 # @Author   : Lattine
 
 # =======================
-
+import datetime
 from peewee import *
+
 from backend.config import Config
+from backend.dao import User
 
 cfg = Config()
 
@@ -19,6 +21,10 @@ class BaseModel(Model):
         database = db
 
 
-class User(BaseModel):
-    username = CharField(max_length=50)
-    password = CharField()
+class Article(BaseModel):
+    author = ForeignKeyField(User, backref="articles")
+
+    title = CharField()
+    content = TextField()
+    created_at = DateTimeField(default=datetime.datetime.now)
+    updated_at = DateTimeField()
