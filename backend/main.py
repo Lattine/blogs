@@ -26,17 +26,19 @@ async def authenticate(request, *args, **kwargs):
 
 # --------------- Main process --------------
 app = Sanic("blogs")
+app.config['CORS_AUTOMATIC_OPTIONS'] = True
+
 app.blueprint(article)
 CORS(app)  # 解决跨域
 Initialize(app, authenticate=authenticate)
 
 
-@app.route("/", methods=["OPTIONS", "GET"])
+@app.route("/", methods=["GET"])
 async def index(request):
     return response.json({"host": request.host})
 
 
-@app.route("/sc", methods=["OPTIONS", "GET"])
+@app.route("/sc", methods=["GET"])
 @protected()
 async def sc(request):
     return response.json({"host": request.host, "msg": "secret!"})
