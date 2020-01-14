@@ -1,13 +1,10 @@
-# 忽略的文件夹
+# 编辑器相关
 **/.idea
 **/.vscode
 **/.ipynb_checkpoints
 
+# 编译文件
 **/__pycache__
 
+# Python环境
 **/venv
-
-**/migrations
-
-**/data
-**/ckpt
