@@ -6,5 +6,7 @@
 # 编译文件
 **/__pycache__
 
-# Python环境
+
+# 环境
 **/venv
+**/node_modules
