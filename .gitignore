@@ -10,4 +10,7 @@
 # 环境
 **/venv
 **/node_modules
+**/migrations
+
+# 文件
 **/.env
