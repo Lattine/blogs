@@ -1,5 +1,6 @@
 from flask import g
 from flask_httpauth import HTTPBasicAuth, HTTPTokenAuth
+from app import db
 from app.models import User
 from app.api.errors import error_response
 
@@ -17,17 +18,21 @@ def verify_password(username, password):
     return user.check_password(password)
 
 
-@token_auth.verify_token
-def verify_token(token):
-    """用于检查用户请求是否有token、是否在有效期"""
-    g.current_user = User.check_token(token) if token else None
-    return g.current_user is not None
-
-
 @basic_auth.error_handler
 def basic_auth_error():
     """用于认证失败时的错误相应"""
     return error_response(401)
+
+
+@token_auth.verify_token
+def verify_token(token):
+    """用于检查用户请求是否有token、是否在有效期"""
+    g.current_user = User.verify_jwt(token) if token else None
+    if g.current_user:
+        # 每次认证之后（即访问资源API），更新 last_seen　时间
+        g.current_user.refresh_last_seen()
+        db.session.commit()
+    return g.current_user is not None
 
 
 @token_auth.error_handler
