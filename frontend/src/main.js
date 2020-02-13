@@ -6,7 +6,11 @@ import router from './router'
 import axios from './http' // 导入配置的全局AXIOS
 import moment from 'moment' // 导入moment用来格式化UTC时间为本地时间
 import 'bootstrap/dist/css/bootstrap.css' // Import Booststrap css files
-
+import 'bootstrap/dist/js/bootstrap.js'
+import './assets/core.css'
+import './assets/custom.css'
+import './assets/icon-line/css/simple-line-icons.css'
+import './assets/icon-material/material-icons.css'
 // Register the vue-toasted plugin on vue
 import VueToasted from 'vue-toasted'
 Vue.use(VueToasted, {

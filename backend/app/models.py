@@ -62,6 +62,7 @@ class User(PaginatedApiMixin, db.Model):
         data = {
             "id": self.id,
             "username": self.username,
+            "email": self.email,
             "name": self.name,
             "location": self.location,
             "about_me": self.about_me,
@@ -78,7 +79,7 @@ class User(PaginatedApiMixin, db.Model):
 
     def from_dict(self, data, new_user=False):
         """前端发送过来 JSON 对象，需要转换成 User 对象"""
-        for field in ["username", "email"]:
+        for field in ["username", "email", "name", "location", "about_me"]:
             if field in data:
                 setattr(self, field, data[field])
         if new_user and "password" in data:

@@ -49,6 +49,8 @@ export default {
     return {
       sharedState: store.state,
       profileForm: {
+        username: '',
+        email: '',
         name: '',
         location: '',
         about_me: '',
@@ -62,6 +64,9 @@ export default {
       this.$axios
         .get(path)
         .then(response => {
+          console.log(response.data)
+          this.profileForm.username = response.data.username
+          this.profileForm.email = response.data.email
           this.profileForm.name = response.data.name
           this.profileForm.location = response.data.location
           this.profileForm.about_me = response.data.about_me
@@ -75,6 +80,8 @@ export default {
       const user_id = this.sharedState.user_id
       const path = `/users/${user_id}`
       const payload = {
+        username: this.profileForm.username,
+        email: this.profileForm.email,
         name: this.profileForm.name,
         location: this.profileForm.location,
         about_me: this.profileForm.about_me

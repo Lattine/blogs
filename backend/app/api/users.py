@@ -89,6 +89,7 @@ def update_user(id):
         return bad_requesst(message)
 
     # 更新数据
+    print(data)
     user.from_dict(data, new_user=False)
     db.session.commit()
     return jsonify(user.to_dict())
