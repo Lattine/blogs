@@ -5,7 +5,7 @@ import Login from '@/components/Login'
 import Register from '@/components/Register'
 import Profile from '@/components/Profile'
 import EditProfile from '@/components/EditProfile'
-import Ping from '@/components/Ping'
+import EditPost from '@/components/EditPost'
 
 // import store from '../store'
 
@@ -16,10 +16,7 @@ const router = new Router({
     {
       path: '/',
       name: 'Home',
-      component: Home,
-      meta: {
-        requiresAuth: true
-      }
+      component: Home
     },
     {
       path: '/login',
@@ -48,9 +45,12 @@ const router = new Router({
       }
     },
     {
-      path: '/ping',
-      name: 'Ping',
-      component: Ping
+      path: '/post/edit',
+      name: 'EditPost',
+      component: EditPost,
+      meta: {
+        requiresAuth: true
+      }
     }
   ]
 })

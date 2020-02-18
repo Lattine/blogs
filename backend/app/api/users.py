@@ -5,7 +5,7 @@ from flask import jsonify, request, url_for
 from app import db
 from app.api import bp
 from app.api.auth import token_auth
-from app.api.errors import bad_requesst
+from app.api.errors import bad_request
 from app.models import User
 
 
@@ -14,7 +14,7 @@ def create_user():
     """注册一个新用户"""
     data = request.get_json()
     if not data:
-        return bad_requesst("You must post JSON data.")
+        return bad_request("You must post JSON data.")
 
     # 以下是验证数据是否缺失
     message = {}
@@ -32,7 +32,7 @@ def create_user():
     if User.query.filter_by(email=data.get("email", None)).first():
         message["email"] = "Please use a different emaill."
     if message:
-        return bad_requesst(message)
+        return bad_request(message)
 
     # 以下将数据存入数据库
     user = User()
@@ -70,7 +70,7 @@ def update_user(id):
     user = User.query.get_or_404(id)
     data = request.get_json()
     if not data:
-        return bad_requesst("You must post JSON data.")
+        return bad_request("You must post JSON data.")
 
     # 以下是验证数据缺失
     message = {}
@@ -86,7 +86,7 @@ def update_user(id):
         message["email"] = "Please use a different email."
 
     if message:
-        return bad_requesst(message)
+        return bad_request(message)
 
     # 更新数据
     print(data)

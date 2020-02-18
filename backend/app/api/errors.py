@@ -14,7 +14,7 @@ def error_response(status_code, message=None):
     return response
 
 
-def bad_requesst(message):
+def bad_request(message):
     return error_response(status_code=400, message=message)
 
 

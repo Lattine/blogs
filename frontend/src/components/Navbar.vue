@@ -12,10 +12,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
           <li class="nav-item active">
-            <router-link to="/" class="nav-link">Home <span class="sr-only">(current)</span></router-link>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#">Explore</a>
+            <router-link to="/" class="nav-link">Home</router-link>
           </li>
         </ul>
 
@@ -27,7 +24,7 @@
 
         <ul v-if="sharedState.is_authenticated" class="nav navbar-nav navbar-right">
           <li class="nav-item">
-            <a class="nav-link disabled" href="#">Messages</a>
+            <router-link to="/post/edit" class="nav-link">写博客</router-link>
           </li>
           <li class="nav-item">
             <router-link v-bind:to="{name:'Profile', params: {id:sharedState.user_id}}" class="nav-link">Profile</router-link>
